@@ -20,7 +20,6 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path='/' element={<MainPage />}>
-          <Route index={true} element={<AllBooks />} />
           <Route path=':category' element={<AllBooks />} />
           <Route path='Terms of use' element={<TermsOfUse />} />
           <Route path='Contract offer' element={<ContractOffer />} />

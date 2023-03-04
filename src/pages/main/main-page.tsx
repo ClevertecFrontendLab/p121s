@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Footer } from '../../components/footer';
@@ -8,16 +8,26 @@ import { Menu } from '../../components/menu';
 import { Loader } from '../../shared/loader';
 import { Toast } from '../../shared/toasts/toast';
 import { useAppSelector } from '../../store/store';
+import { AuthRegistrationUser } from '../auth-registr-user';
 
 import * as S from './main-page-styled';
 
 export const MainPage = (): JSX.Element => {
-  const isLoadingBooks = useAppSelector(state => state.allBooksReducer.isLoading);
-  const isLoadingCategories = useAppSelector(state => state.allCategoriesReducer.isLoading);
-  const isLoadedBooks = useAppSelector(state => state.allBooksReducer.isLoaded);
-  const isLoadedCategories = useAppSelector(state => state.allCategoriesReducer.isLoaded);
-  const isErrorBooks = useAppSelector(state => state.allBooksReducer.isError);
-  const isErrorCategories = useAppSelector(state => state.allCategoriesReducer.isError);
+  const isLoadingBooks = useAppSelector((state) => state.allBooksReducer.isLoading);
+  const isLoadingCategories = useAppSelector((state) => state.allCategoriesReducer.isLoading);
+  const isLoadedBooks = useAppSelector((state) => state.allBooksReducer.isLoaded);
+  const isLoadedCategories = useAppSelector((state) => state.allCategoriesReducer.isLoaded);
+  const isErrorBooks = useAppSelector((state) => state.allBooksReducer.isError);
+  const isErrorCategories = useAppSelector((state) => state.allCategoriesReducer.isError);
+  const mainRoute = useLocation();
+  const navigate = useNavigate();
+  const params = useParams();
+
+  useEffect(() => {
+    if (mainRoute.pathname === '/') {
+      navigate('/all');
+    }
+  }, [mainRoute, navigate]);
 
   useEffect(() => {
     if (isLoadedBooks && isLoadedCategories) {
@@ -27,7 +37,9 @@ export const MainPage = (): JSX.Element => {
     }
   }, [isErrorBooks, isErrorCategories, isLoadedBooks, isLoadedCategories]);
 
-  return (
+  return params.category === 'auth' || params.category === 'registration' || params.category === 'forgot-pass' ? (
+    <AuthRegistrationUser />
+  ) : (
     <React.Fragment>
       {isLoadingBooks || isLoadingCategories ? <Loader /> : ''}
       <Header />

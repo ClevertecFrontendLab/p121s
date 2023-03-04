@@ -50,10 +50,10 @@ export const Menu = (): JSX.Element => {
 
           if (submenu) {
             submenuItems = submenu.map((item1: SubMenuItem) => (
-              <S.WrapperSunMenuItem>
+              <S.WrapperSunMenuItem key={`wrapp_submenu_item_${item1.id}`}>
                 <S.SubMenuItem
                   key={item1.id}
-                  to={item1.path}
+                  to={`/${item1.path}`}
                   className={(isActive) => (isActive ? 'active' : '')}
                   onClick={handleCloseMenu}
                   data-test-id={
@@ -84,7 +84,7 @@ export const Menu = (): JSX.Element => {
             <React.Fragment key={`frag_${item.id}`}>
               <S.ManuItem
                 key={item.id}
-                to={item.path}
+                to={`/${item.path}`}
                 className={isMainPath ? 'active' : ''}
                 onClick={handlerOpenCloseSubMenu}
                 data-test-id={isTablet ? idBurgerTests[i] : idNavigationTests[i]}

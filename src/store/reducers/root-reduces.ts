@@ -4,7 +4,7 @@ import allBooksReducer from './all-books/all-books';
 import allCategoriesReducer from './all-categories/all-categories';
 import oneBookReducer from './one-book/one-book';
 import openCloseMenuReducer from './open-close-menu/open-close-menu';
-import sortSearchBooksReducer from './sort-search-books';
+import sortSearchViewBooksReducer from './sort-search-view-books/sort-search-view-books';
 
 // eslint-disable-next-line import/no-default-export
 export default combineReducers({
@@ -12,5 +12,5 @@ export default combineReducers({
   allBooksReducer,
   allCategoriesReducer,
   oneBookReducer,
-  sortSearchBooksReducer,
+  sortSearchViewBooksReducer,
 });
